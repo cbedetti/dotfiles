@@ -1,0 +1,44 @@
+#!/bin/bash
+
+SESSION_NAME="cheval"
+
+if [ ! -z "${1// }" ]; then
+    directory="cd $1"
+else
+    directory="cd ~/dotfiles/"
+fi
+echo $directory
+echo $1
+
+function set_session {
+    # New session
+    tmux new-session -s ${SESSION_NAME} -n dotfiles -d
+    # pane 1
+    tmux send-keys "${directory}" C-m
+    tmux send-keys "vim" C-m
+    # pane 2
+    tmux split-window -h -p 51
+    tmux send-keys "${directory}" C-m
+    tmux send-keys "ls -l" C-m
+    # ipython window
+    #if [$1 -eq "-i"]; then
+    #    tmux new-window -t ${SESSION_NAME} -n ipython
+    #    tmux send-keys "ipython notebook &" C-m
+    #fi
+    # select pane 1
+    tmux select-window -t ${SESSION_NAME}:1
+    # attach to session
+    tmux attach -t ${SESSION_NAME}:1
+}
+
+if tmux info &> /dev/null
+then
+    if tmux has-session -t ${SESSION_NAME} &> /dev/null
+    then
+        tmux attach -t ${SESSION_NAME}:1
+    else
+        set_session
+    fi
+else
+    set_session
+fi

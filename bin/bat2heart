@@ -1,0 +1,28 @@
+#!/bin/bash
+HEART='♥ '
+BatLink=`upower -e | grep BAT0`
+report=`upower -i ${BatLink}`
+#echo $report
+function get()
+{
+    line=`upower -i ${BatLink} | grep $1`
+    local rsl=`echo ${line} | awk -F " " '{print $2}'`
+    echo ${rsl}
+}
+
+percent=`echo ${report} | grep -o 'percentage: [0-9]\+' | awk '{print $2}'`
+#echo ${percent}
+
+slots=$(echo "${percent}/20" | bc -l | cut -d '.' -f 1)
+#echo ${slots}
+
+echo -n '#[fg=colour196]'
+for i in `seq 1 ${slots}`; do echo -n "${HEART}"; done
+
+if [[ ${slots} -lt 5 ]]; then
+    echo -n '#[fg=colour254]'
+    for i in `seq 1 $(echo "5-${slots}" | bc)`; do echo -n "${HEART}"; done
+fi
+
+state=`get state`
+echo ${state}

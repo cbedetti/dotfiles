@@ -1,0 +1,141 @@
+#!/bin/bash
+
+function work_session {
+    SESSION_NAME=work
+    # pane 1
+    tmux new-session -d -s ${SESSION_NAME}
+    tmux new-window -t ${SESSION_NAME}:1 -n 'dotfiles'
+    tmux send-keys "cd ~/.dotfiles/" C-m
+    tmux send-keys "vim" C-m
+    # pane 2
+    tmux split-window -h -p 45
+    tmux send-keys "cd ~/.dotfiles/" C-m
+    tmux send-keys "ls -l" C-m
+    # attach to session
+    tmux select-pane -t 1
+    tmux attach -t ${SESSION_NAME}:1
+}
+
+
+function server_session {
+    SESSION_NAME=$1
+    SERVER_NAME=$1
+    # pane 1
+    tmux new-session -d -s ${SESSION_NAME}
+    tmux new-window -t ${SESSION_NAME}:1 -n "${SERVER_NAME}"
+    tmux send-keys "${SERVER_NAME}" C-m
+    tmux send-keys "vim" C-m
+    # pane 2
+    tmux split-window -h -p 40
+    tmux send-keys "${SERVER_NAME}" C-m
+    tmux send-keys "cd ~/scratch/" C-m
+    # pane 3
+    tmux split-window -v -p 20
+    tmux send-keys "${SERVER_NAME}" C-m
+    # attach to session
+    tmux select-pane -t 1
+    tmux attach -t ${SESSION_NAME}:1
+}
+
+function toad_session {
+    SESSION_NAME=$1
+    SERVER_NAME=stark
+    # pane 1
+    tmux new-session -d -s ${SESSION_NAME}
+    tmux new-window -t ${SESSION_NAME}:1 -n "${SERVER_NAME}"
+    tmux send-keys "${SERVER_NAME}" C-m
+    tmux send-keys "cd ~/toad/" C-m
+    tmux send-keys "vim" C-m
+    # pane 2
+    tmux split-window -h -p 40
+    tmux send-keys "${SERVER_NAME}" C-m
+    tmux send-keys "cd ~/scratch/" C-m
+    # pane 3
+    tmux split-window -v -p 20
+    tmux send-keys "${SERVER_NAME}" C-m
+    tmux send-keys "cd ~/toad/" C-m
+    tmux send-keys "git status" C-m
+    # attach to session
+    tmux select-pane -t 1
+    tmux attach -t ${SESSION_NAME}:1
+}
+
+
+function new_session_menu {
+    PS3="Please choose a session template and press [ENTER]: "
+    echo ""
+    echo "Available session templates"
+    echo "---------------------------"
+    select opt in toadDev@stark magma mp2 work simple Quit
+    do
+        case ${opt} in
+            toadDev@stark)
+                toad_session ${opt}
+                break
+                ;;
+            magma)
+                server_session ${opt}
+                break
+                ;;
+            mp2)
+                server_session ${opt}
+                break
+                ;;
+            work)
+                work_session
+                break
+                ;;
+            simple)
+                tmux new-session
+                break
+                ;;
+            Quit)
+                exit 0
+                break
+                ;;
+        esac
+    done
+}
+
+
+function session_menu {
+    PS3="Please choose your session and press [ENTER]: "
+    options=($(tmux ls -F "#S") "New session" "Quit")
+    echo ""
+    echo "Available Session(s)"
+    echo "--------------------"
+    select opt in "${options[@]}"
+    do
+        case ${opt} in
+            "New session")
+                new_session_menu
+                break
+                ;;
+            "Quit")
+                exit 0
+                break
+                ;;
+            *)
+                if [ "$TMUX" == "" ]
+                then
+                    tmux attach -t ${opt}
+                else
+                    tmux switch -t ${opt}
+                fi
+                break
+                ;;
+        esac
+    done
+}
+
+# Check tmux' state
+if tmux info &> /dev/null
+then
+    clear
+    session_menu
+else
+    clear
+    echo "tmux is not running, we should start a session."
+    new_session_menu
+fi
+

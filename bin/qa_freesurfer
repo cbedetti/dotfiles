@@ -1,0 +1,25 @@
+#!/bin/bash
+
+subjDir=$1
+
+#~~~~~~~~~~#
+# Settings #
+#~~~~~~~~~~#
+pialcolor="edgecolor=red"
+whitecolor="edgecolor=yellow"
+edgethickness="edgethickness=1"
+
+
+freeview -v \
+    ${subjDir}/mri/T1.mgz:visible=0 \
+    ${subjDir}/mri/brainmask.mgz \
+    ${subjDir}/mri/norm.mgz:visible=0 \
+    ${subjDir}/mri/wm.mgz:colormap=heat:opacity=0.4:visible=0 \
+    -f \
+    ${subjDir}/surf/lh.white:${whitecolor}:${edgethickness} \
+    ${subjDir}/surf/lh.pial:${pialcolor}:${edgethickness} \
+    ${subjDir}/surf/rh.white:${whitecolor}:${edgethickness} \
+    ${subjDir}/surf/rh.pial:${pialcolor}:${edgethickness} \
+    ${subjDir}/surf/rh.inflated:visible=0 \
+    ${subjDir}/surf/lh.inflated:visible=0 \
+    &
