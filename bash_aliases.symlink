@@ -1,0 +1,74 @@
+# PS1
+
+# Determine active Python virtualenv details.
+function set_virtualenv () {
+    if test -z "$VIRTUAL_ENV" ; then
+        PROMPT_VIRTUALENV=""
+    else
+        PROMPT_VIRTUALENV="${YELLOW}(`basename \"$VIRTUAL_ENV\"`)"
+    fi
+}
+
+# Set the full bash prompt.
+function set_bash_prompt () {
+  set_virtualenv
+  PS1="\n${PROMPT_VIRTUALENV}${GREEN}\u@\h${ESC}:\w\n${GREEN}\$${ESC} "
+}
+
+GREEN="\[\e[38;5;2m\]"
+RED="\[\e[38;5;1m\]"
+YELLOW="\[\e[38;5;11m\]"
+ESC="\[\e[0m\]"
+PROMPT_COMMAND=set_bash_prompt
+
+
+# Aliases
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias diff="colordiff"
+#eval $(dircolors -b $HOME/.config/LS_COLORS/LS_COLORS)
+alias ls='ls --color=auto'
+alias la="ls -A"
+alias ll='ls -lh'
+alias lla="ls -lhA"
+alias lart="ls -lhArt"
+alias lsd="ls -F | grep /$ | cut -d"/" -f1"
+alias reload="source ${HOME}/.bashrc"
+alias tmux="tmux -2"
+alias tmkillcheval="tmux kill-session -t cheval"
+# ssh
+for host in `cat ${HOME}/.ssh/config | grep "Host " | cut -d" " -f2`
+do
+    alias ${host}="ssh -Y ${host}"
+done
+
+
+# Functions
+dush () { du -sh "$@"* | sort -h; }
+module () { eval $($LMOD_CMD bash $*); }
+
+
+# Solarized gnome-terminal
+dark () {
+    ~/local/github/gnome-terminal-colors-solarized/set_dark.sh
+}
+light () {
+    ~/local/github/gnome-terminal-colors-solarized/set_light.sh
+}
+
+# Reset sound settings if not working after HDMI use
+# https://help.ubuntu.com/community/SoundTroubleshootingProcedure
+reset_pulsaudio () {
+    sudo killall pulseaudio
+    rm -r ~/.config/pulse/*
+    rm -r ~/.pulse*
+    echo "Wait ten seconds, then run this: pulseaudio -k"
+    echo "Comment: alert sound was reset to default"
+}
+
+clean_pyc () {
+    find $1 -name *pyc -print -delete
+}

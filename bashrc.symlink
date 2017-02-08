@@ -1,0 +1,64 @@
+# Load ~/.bash_aliases
+[[ -f "${HOME}/.bash_aliases" ]] && source ${HOME}/.bash_aliases
+
+# tmux
+export TERM="screen-256color"
+
+# Specific configuration for each host
+case "${HOSTNAME}" in
+    leo | lynx)
+        # dircolors settings
+        if [ -f ~/.dir_colors/dircolors ]
+        then
+            eval `dircolors ~/.dir_colors/dircolors`
+        fi
+
+        # Module settings
+        module use ${HOME}/.modulefiles
+        module load anaconda
+        module load fsl
+        module load freesurfer
+
+        #Other
+        # mrtrix3
+        #export PATH=${PATH}:/usr/local/mrtrix3/bin
+        # cmroi QA
+        #export CMROIDIR=/usr/local/cmroi
+        #export PATH=${PATH}:${CMROIDIR}
+        # trackvis
+        #export PATH=${PATH}:/usr/local/trackvis
+        # virtual env wrapper
+        #source /usr/local/bin/virtualenvwrapper.sh
+        # Dcm2Bids
+        #export PYTHONPATH=${PYTHONPATH}:/home/chris/local/Dcm2Bids
+        #export PATH=${PATH}:/home/chris/local/Dcm2Bids/bin
+        # dcmstack
+        #export PYTHONPATH=${PYTHONPATH}:/home/chris/local/dcmstack
+        # java
+        #JAVA_HOME=/usr/local/java
+        #export JAVA_HOME
+        #export JRE_HOME
+        #export PATH
+        # android-studio
+        #export PATH=${PATH}:/usr/local/android-studio/bin
+        # ants
+        #export ANTSPATH=/home/chris/local/ants/antsbin/bin
+        #export PATH=${PATH}:${ANTSPATH}
+        ;;
+    stark | magma)
+        # toad
+        source /usr/local/toad/etc/unf-toad-config.sh
+        # afni
+        PATH=${PATH}:/home/bpinsard/data/bin/afni_openmp_64
+        export PATH
+        ;;
+    #*)
+        #if [ "${BQMAMMOUTH}" -eq "mp2" ]
+        #then
+            #TOADDIR=/netmount/ip01_home/cbedetti/local/toad
+            #source ${TOADDIR}/etc/unf-toad-config.sh
+        #else
+            #echo -e "\nServer '${HOSTNAME}' is not known\n"
+        #fi
+        #;;
+esac
