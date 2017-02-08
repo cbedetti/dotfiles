@@ -1,0 +1,187 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+RELEASE="$(lsb_release -sc)"
+
+
+echo ""
+info "Make usefull directories"
+mkdir ${HOME}/Projets
+mkdir ${HOME}/Sandbox
+ln -s ${HOME}/dotfiles/modulefiles ${HOME}/.modulefiles
+ln -s ${HOME}/dotfiles/private/local ${HOME}
+
+
+echo ""
+info "Add repositories"
+
+# This step won't be needed after Ubuntu 16.04
+info "Arc"
+wget "http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key"
+sudo apt-key add - < Release.key
+rm Release.key
+sudo apt-add-repository -y 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /'
+
+info "DropBox"
+sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+sudo apt-add-repository -y 'deb http://linux.dropbox.com/ubuntu xenial main'
+
+info "Moka"
+sudo apt-add-repository -y ppa:moka/daily
+
+# No need for Ubuntu 16.04
+#info "Solaar"
+#sudo apt-add-repository -y ppa:daniel.pavel/solaar
+
+info "Spotify"
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+sudo apt-add-repository -y 'deb http://repository.spotify.com stable non-free'
+
+info "Steam: Multiverse"
+sudo apt-add-repository -y multiverse
+
+
+echo ""
+info "Make sure everything is up to date before messing with stuff"
+sudo apt update
+sudo apt upgrade -y
+
+
+echo ""
+info "Install a bunch of stuff"
+sudo apt install -y colordiff curl gimp git gnucash htop keepassx libreoffice pandoc solaar texlive tmux vim vlc
+#clementine hexchat inkscape powertop sparkleshare xdotool
+info "Install individually because not in the default repository"
+sudo apt install -y arc-theme
+sudo apt install -y dropbox
+sudo apt install -y moka-icon-theme
+sudo apt install -y spotify-client
+sudo apt install -y steam
+#for YouCompleteMe
+sudo apt install -y build-essential cmake
+#Slack
+sudo apt install -y ${HOME}/dotfiles/private/src/slack-desktop-2.4.2-amd64.deb
+
+
+echo ""
+info "Github"
+githublist=(
+    'https://github.com/Anthony25/gnome-terminal-colors-solarized.git'
+    'https://github.com/MRtrix3/mrtrix3.git'
+    'https://github.com/powerline/fonts.git'
+    'https://github.com/TACC/Lmod'
+    'https://github.com/VundleVim/Vundle.vim.git'
+)
+GITHUB_DIR=${HOME}/local/github
+mkdir -p ${GITHUB_DIR}
+cd ${GITHUB_DIR}
+for link in "${githublist[@]}"; do
+    info "cloning "${link}
+    git clone ${link}
+done
+
+
+echo ""
+info "Install fonts"
+${GITHUB_DIR}/fonts/install.sh
+
+
+echo ""
+info "Install Lmod"
+cd ${GITHUB_DIR}/Lmod
+./configure --prefix=${HOME}/local/
+make install
+sudo ln -s ${HOME}/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+
+
+echo ""
+info "Install dotfiles: requires clicks"
+${SOURCE_DIR}/script/install_dotfiles
+
+
+echo ""
+info "Install Gnome tweak tool: requires clicks"
+sudo apt install -y gnome-tweak-tool
+
+
+echo ""
+info "Install vim plugin"
+dst=${HOME}/.vim/bundle
+mkdir -p ${dst}
+ln -s ${GITHUB_DIR}/Vundle.vim ${dst}
+vim +PluginInstall +qall
+
+
+echo ""
+info "Setup dotfiles origin remote"
+cmd="${SOURCE_DIR}/private/setup_dotfiles_origin"
+[ -f "${cmd}" ] && ${cmd}
+
+
+#echo ""
+#info "Install DropBox"
+#cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+#~/.dropbox-dist/dropboxd
+
+
+echo ""
+info "Update system settings"
+info "Background & Screensaver"
+gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/gnome/Road.jpg'
+gsettings set org.gnome.desktop.background primary-color '#ffffff'
+gsettings set org.gnome.desktop.background secondary-color '#000000'
+gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/gnome/Sandstone.jpg'
+gsettings set org.gnome.desktop.screensaver primary-color '#ffffff'
+gsettings set org.gnome.desktop.screensaver secondary-color '#000000'
+
+info "Keyboard and mouse"
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt']
+info "Privacy"
+gsettings set org.gnome.desktop.privacy remove-old-temp-files true
+gsettings set org.gnome.desktop.privacy recent-files-max-age 7
+gsettings set org.gnome.desktop.screensaver lock-delay uint32 300
+info "Extensions"
+gsettings set org.gnome.shell enabled-extensions ['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com']
+info "Appearance"
+gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Moka'
+gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
+info "Power"
+#http://askubuntu.com/questions/762268/change-power-button-action-comand-for-hibernate-option-in-gnome-3-18
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action 'blank'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-battery-action 'blank'
+info "Top bar"
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.shell.calendar show-weekdate true
+#gsettings set org.gnome.desktop.interface show-battery-percentage true
+info "Typing"
+gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt', 'caps:ctrl_modifier']
+info "Misc."
+
+
+echo ""
+info "Cleaning up"
+sudo apt autoremove -y
+
+
+# FSL hack
+sudo ln -s /usr/lib/x86_64-linux-gnu/libmng.so.2 /usr/lib/x86_64-linux-gnu/libmng.so.1
+sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so.8 /usr/lib/x86_64-linux-gnu/libjpeg.so.62
+
+
+echo ""
+success " All install done"
+echo ""
+info "YouCompleteMe not compile"
+info "launch 'script/compile_YouCompleteMe' after loading anaconda"
+echo ""
+info "Solarized Colorscheme for Gnome Terminal"
+info "Create two profiles 'dark' and 'light'"
+info "cd "${GITHUB_DIR}"/gnome-terminal-colors-solarized"
+info "Launch './install.sh --install-dircolors' 2 times"
+info "Select 'Liberation Mono' size 14 for each profile"
+

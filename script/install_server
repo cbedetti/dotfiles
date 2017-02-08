@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+echo ""
+info "Make usefull directories"
+#ln -s ${HOME}/dotfiles/private/local ${HOME}
+#ln -s ${SCRATCH} ${HOME}/scratch
+
+
+echo ""
+info "Github"
+githublist=(
+    'https://github.com/MRtrix3/mrtrix3.git'
+    'https://github.com/VundleVim/Vundle.vim.git'
+)
+GITHUB_DIR=${HOME}/local/github
+mkdir -p ${GITHUB_DIR}
+cd ${GITHUB_DIR}
+for link in "${githublist[@]}"; do
+    info "cloning "${link}
+    git clone ${link}
+done
+
+
+echo ""
+info "Install dotfiles: requires clicks"
+${SOURCE_DIR}/script/install_dotfiles
+
+
+echo ""
+info "Install vim plugin"
+dst=${HOME}/.vim/bundle
+mkdir -p ${dst}
+ln -s ${GITHUB_DIR}/Vundle.vim ${dst}
+vim +PluginInstall +qall
+
+
+echo ""
+info "Setup dotfiles origin remote"
+cmd="${SOURCE_DIR}/private/setup_dotfiles_origin"
+[ -f "${cmd}" ] && ${cmd}
+
+
+echo ""
+success " All install done"
+echo ""
+info "YouCompleteMe not compile"
+info "launch 'script/compile_YouCompleteMe' after loading anaconda"
+

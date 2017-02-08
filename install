@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/script/print_functions.sh
+
+
+echo ""
+info "If you have a private directory, copy it"
+info "in your dotfiles directory before continue"
+info ""
+user "Do you wish to do the install now ?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) break;;
+        No ) exit;;
+    esac
+done
+
+echo ""
+user "Desktop or server install ?"
+select i in "Desktop" "Server" "Quit"; do
+    case $i in
+        Desktop ) ${SOURCE_DIR}/script/install_desktop;;
+        Server ) ${SOURCE_DIR}/script/install_server;;
+        Quit ) exit;;
+    esac
+done

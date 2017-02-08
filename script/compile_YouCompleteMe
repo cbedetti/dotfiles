@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+echo ""
+info "Compile YouCompleteMe"
+#https://github.com/Valloric/YouCompleteMe
+cd ${HOME}/.vim/bundle/YouCompleteMe
+./install.py
+

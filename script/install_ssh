@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+echo ""
+user "List of Host in ~/.ssh/config"
+for host in `cat ${HOME}/.ssh/config | grep "Host " | cut -d" " -f2`
+do
+    info ${host}
+done
+
+echo ""
+echo ""
+user "SSH Setup with these command lines"
+echo ""
+info "ssh-keygen -t rsa -b 4096"
+info "ssh <host> mkdir -p .ssh"
+info "cat ~/.ssh/id_rsa.pub | ssh <host> 'cat >> .ssh/authorized_keys'"
+echo ""
+echo ""
+
