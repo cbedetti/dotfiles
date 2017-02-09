@@ -12,6 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 "Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sensible.git'
 "Plugin 'Valloric/YouCompleteMe'
 
 " Plugin
