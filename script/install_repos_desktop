@@ -1,0 +1,48 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+githublist=(
+    'https://github.com/Anthony25/gnome-terminal-colors-solarized.git'
+    'https://github.com/powerline/fonts.git'
+    'https://github.com/TACC/Lmod'
+)
+cd ~/local
+for link in "${githublist[@]}"; do
+    info "cloning "${link}
+    git clone ${link}
+done
+
+
+echo ""
+info "Install Solarized Colorscheme for Gnome Terminal"
+info "You should have created two profiles 'dark' and 'light' before continue"
+user "Do you want to continue ?"
+select i in "Yes" "Skip"; do
+    case $i in
+        Yes )
+            cmd="~/local/gnome-terminal-colors-solarized/install.sh"
+            ${cmd} --install-dircolors -s dark -p dark
+            ${cmd} --skip-dircolors -s light -p light
+            info "Select 'Liberation Mono' size 14 for each profile"
+            ;
+        Skip ) break;;
+    esac
+done
+
+
+echo ""
+info "Install fonts"
+~/local/fonts/install.sh
+
+
+echo ""
+info "Install Lmod"
+cd ~/local/Lmod
+./configure --prefix=~/local/
+make install
+sudo ln -s ~/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+

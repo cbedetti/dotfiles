@@ -7,11 +7,16 @@ RELEASE="$(lsb_release -sc)"
 
 
 echo ""
-info "Make usefull directories"
-mkdir ${HOME}/Projets
-mkdir ${HOME}/Sandbox
-ln -s ${HOME}/dotfiles/modulefiles ${HOME}/.modulefiles
-ln -s ${HOME}/dotfiles/private/local ${HOME}
+info "Make usefull directories & links"
+mkdir ~/local
+mkdir ~/Projets
+mkdir ~/Sandbox
+ln -s ~/dotfiles/modulefiles ~/.modulefiles
+
+
+echo ""
+info "Install dotfiles"
+${SOURCE_DIR}/script/install_dotfiles
 
 
 echo ""
@@ -53,7 +58,6 @@ echo ""
 info "Install a bunch of stuff"
 sudo apt install -y colordiff curl gimp git gnucash htop keepassx libreoffice pandoc solaar texlive tmux vim vlc
 #clementine hexchat inkscape powertop sparkleshare xdotool
-info "Install individually because not in the default repository"
 sudo apt install -y arc-theme
 sudo apt install -y dropbox
 sudo apt install -y moka-icon-theme
@@ -63,67 +67,31 @@ sudo apt install -y steam
 sudo apt install -y build-essential cmake
 #Slack
 sudo apt install -y ${HOME}/dotfiles/private/src/slack-desktop-2.4.2-amd64.deb
+sudo apt upgrade -y
 
 
 echo ""
-info "Github"
-githublist=(
-    'https://github.com/Anthony25/gnome-terminal-colors-solarized.git'
-    'https://github.com/MRtrix3/mrtrix3.git'
-    'https://github.com/powerline/fonts.git'
-    'https://github.com/TACC/Lmod'
-    'https://github.com/VundleVim/Vundle.vim.git'
-)
-GITHUB_DIR=${HOME}/local/github
-mkdir -p ${GITHUB_DIR}
-cd ${GITHUB_DIR}
-for link in "${githublist[@]}"; do
-    info "cloning "${link}
-    git clone ${link}
-done
+info "Install online repos for desktop"
+${SOURCE_DIR}/script/install_repos_desktop
 
 
 echo ""
-info "Install fonts"
-${GITHUB_DIR}/fonts/install.sh
+cmd="${SOURCE_DIR}/private/install_git_repos"
+if [[ -f "${cmd}" ]]
+then
+    info "Install git repos"
+    ${cmd}
+fi
 
 
 echo ""
-info "Install Lmod"
-cd ${GITHUB_DIR}/Lmod
-./configure --prefix=${HOME}/local/
-make install
-sudo ln -s ${HOME}/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
-
-
-echo ""
-info "Install dotfiles: requires clicks"
-${SOURCE_DIR}/script/install_dotfiles
+info "Install plugin managers"
+${SOURCE_DIR}/script/install_plugin_manager
 
 
 echo ""
 info "Install Gnome tweak tool: requires clicks"
 sudo apt install -y gnome-tweak-tool
-
-
-echo ""
-info "Install vim plugin"
-dst=${HOME}/.vim/bundle
-mkdir -p ${dst}
-ln -s ${GITHUB_DIR}/Vundle.vim ${dst}
-vim +PluginInstall +qall
-
-
-echo ""
-info "Setup dotfiles origin remote"
-cmd="${SOURCE_DIR}/private/setup_dotfiles_origin"
-[ -f "${cmd}" ] && ${cmd}
-
-
-#echo ""
-#info "Install DropBox"
-#cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-#~/.dropbox-dist/dropboxd
 
 
 echo ""
@@ -168,20 +136,25 @@ info "Cleaning up"
 sudo apt autoremove -y
 
 
-# FSL hack
-sudo ln -s /usr/lib/x86_64-linux-gnu/libmng.so.2 /usr/lib/x86_64-linux-gnu/libmng.so.1
-sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so.8 /usr/lib/x86_64-linux-gnu/libjpeg.so.62
+echo ""
+info "Install sofwares from private/src"
+cmd="${SOURCE_DIR}/private/install_src"
+[ -f "${cmd}" ] && ${cmd}
 
 
 echo ""
 success " All install done"
 echo ""
+user "Things to do:"
+echo ""
 info "YouCompleteMe not compile"
 info "launch 'script/compile_YouCompleteMe' after loading anaconda"
 echo ""
-info "Solarized Colorscheme for Gnome Terminal"
-info "Create two profiles 'dark' and 'light'"
-info "cd "${GITHUB_DIR}"/gnome-terminal-colors-solarized"
-info "Launch './install.sh --install-dircolors' 2 times"
-info "Select 'Liberation Mono' size 14 for each profile"
+info "Tmux plugin manager: prefix + I in a tmux session"
+echo ""
+info "Arc for Firefox"
+info "https://github.com/horst3180/arc-firefox-theme"
+info "https://addons.mozilla.org/en/firefox/collections/horst3180/a/"
+echo ""
+info "Firefox Sync"
 
