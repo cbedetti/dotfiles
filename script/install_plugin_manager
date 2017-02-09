@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+echo ""
+info "Install tmux plugin manager"
+dst=~/.tmux/plugins/tpm
+mkdir -p ${dst}
+git clone git@github.com:tmux-plugins/tpm ${dst}
+
+
+echo ""
+info "Install vim plugin manager"
+dst=~/.vim/bundle
+mkdir -p ${dst}
+git clone git@github.com:VundleVim/Vundle.vim.git ${dst}
+vim +PluginInstall +qall
