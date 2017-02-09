@@ -1,6 +1,4 @@
-"~~~~~~~~"
-" Vundle "
-"~~~~~~~~"
+" Vundle
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -11,10 +9,15 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 " Plugin list
-"Plugin 'altercation/vim-colors-solarized'
-"Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-fugitive'
+"Plugin 'Valloric/YouCompleteMe'
+
+" Plugin
+"nerdtree - file drawer
+"ctrlp - fuzzy file finder
+"syntastic - syntax checker / linter
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -28,9 +31,15 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins;
 
 
-"~~~~~~~~~~~~~~~~~~~~~~"
-" vim-colors-solarized "
-"~~~~~~~~~~~~~~~~~~~~~~"
+" vim-airline
+set laststatus=2 " show the status line all the time
+let g:airline#extensions#tabline#enabled=1 " show tabline
+let g:airline_powerline_fonts=1
+"let g:airline_theme='simple'
+"let g:airline_theme='molokai'
+
+
+" vim-colors-solarized
 "syntax enable
 "set background=dark
 "set background=light
@@ -38,25 +47,16 @@ filetype plugin indent on    " required
 "call togglebg#map("<F4>")
 
 
-"~~~~~~~~~~~~~"
-" vim-airline "
-"~~~~~~~~~~~~~"
-set t_Co=16
-set laststatus=2 " show the status line all the time
-"let g:airline_theme='simple'
-"let g:airline_theme='molokai'
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
+" vim-fugitive
 
 
-"~~~~~~~~~~~~~~"
-" vim-fugitive "
-"~~~~~~~~~~~~~~"
+" YouCompleteMe
+"let g:ycm_autoclose_preview_window_after_completion=1
+"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
-"~~~~~~~~~~~~~~~"
-" Vim behaviour "
-"~~~~~~~~~~~~~~~"
+" Vim behaviour
+set t_Co=16 " for solarized
 set hidden " Switch between buffers without saving
 set encoding=utf-8
 set scrolloff=4
@@ -65,9 +65,7 @@ set wildmode=longest:full,full
 set backspace=indent,eol,start
 
 
-"~~~~~~~~~~~"
-" 80-column "
-"~~~~~~~~~~~"
+" 80-column
 if exists('+colorcolumn')
     set colorcolumn=80
 "else
@@ -75,9 +73,7 @@ if exists('+colorcolumn')
 endif
 
 
-"~~~~~~~~~~~~"
-" Tabulation "
-"~~~~~~~~~~~~"
+" Tabulation
 set tabstop=4        " The width of a TAB is set to 4. Still it is a \t. It is
                      " just that vim will interpret it to be having a width of
                      " 4.
@@ -89,17 +85,13 @@ set smarttab         " Make TAB insert indents instead of tabs at the
                      " beginning of a line
 
 
-"~~~~~~~~~~~~~~"
-" Line numbers "
-"~~~~~~~~~~~~~~"
+" Line numbers
 set number           " Enable line numbers
 set relativenumber   " Enable relative line number
 " :highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=DarkGrey gui=NONE guifg=DarkGrey guibg=NONE
 
 
-"~~~~~~~~~"
-" Mapping "
-"~~~~~~~~~"
+" Mapping
 " One less key stroke for each command
 nnoremap ; :
 " Switching buffers
@@ -107,22 +99,18 @@ nmap <F2> :bp<cr>
 nmap <F3> :bn<cr>
 " Leader
 let mapleader = ","
+" Remove highlight
 noremap <leader><space> :noh<cr>
-:let @c="ostep_size: 0.2/file:$"
 
 
-"~~~~~~~~~~~~~~~~~~~~~~"
-" Invisible characters "
-"~~~~~~~~~~~~~~~~~~~~~~"
+" Invisible characters
 set invlist
 set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮, "eol:¬,
 set showbreak=↪
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 
 
-"~~~~~~~~~~~"
-" Searching "
-"~~~~~~~~~~~"
+" Searching
 "nnoremap / /\v
 "vnoremap / /\v
 set ignorecase " case insensitive searching
@@ -130,30 +118,3 @@ set smartcase " case sensitive if contains a capital letter
 set hlsearch " search highlighting
 set incsearch " set incremental search like modern browsers
 
-
-"~~~~~~~"
-" Split "
-"~~~~~~~"
-nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-
-"~~~~~~~~~~~~~"
-" YouCompleMe "
-"~~~~~~~~~~~~~"
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-
-" File tree style
-"let g:netrw_liststyle=3
-
-
-" plugins
-" nerdtree - file drawer
-" ctrlp - fuzzy file finder
-" fugitive - git tool
-" syntastic - syntax checker / linter
