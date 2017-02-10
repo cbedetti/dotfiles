@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+info "Background & Screensaver"
+gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/gnome/Road.jpg'
+gsettings set org.gnome.desktop.background primary-color '#ffffff'
+gsettings set org.gnome.desktop.background secondary-color '#000000'
+gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/gnome/Sandstone.jpg'
+gsettings set org.gnome.desktop.screensaver primary-color '#ffffff'
+gsettings set org.gnome.desktop.screensaver secondary-color '#000000'
+
+info "Keyboard and mouse"
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt']
+info "Privacy"
+gsettings set org.gnome.desktop.privacy remove-old-temp-files true
+gsettings set org.gnome.desktop.privacy recent-files-max-age 7
+gsettings set org.gnome.desktop.screensaver lock-delay uint32 300
+info "Extensions"
+gsettings set org.gnome.shell enabled-extensions ['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com']
+info "Appearance"
+gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Moka'
+gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
+info "Power"
+#http://askubuntu.com/questions/762268/change-power-button-action-comand-for-hibernate-option-in-gnome-3-18
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action 'blank'
+gsettings set org.gnome.settings-daemon.plugins.power lid-close-battery-action 'blank'
+info "Top bar"
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.shell.calendar show-weekdate true
+#gsettings set org.gnome.desktop.interface show-battery-percentage true
+info "Typing"
+gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt', 'caps:ctrl_modifier']
+info "Misc."
