@@ -12,16 +12,14 @@ gsettings set org.gnome.desktop.background secondary-color '#000000'
 gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/gnome/Sandstone.jpg'
 gsettings set org.gnome.desktop.screensaver primary-color '#ffffff'
 gsettings set org.gnome.desktop.screensaver secondary-color '#000000'
-
 info "Keyboard and mouse"
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt']
 info "Privacy"
 gsettings set org.gnome.desktop.privacy remove-old-temp-files true
 gsettings set org.gnome.desktop.privacy recent-files-max-age 7
-gsettings set org.gnome.desktop.screensaver lock-delay uint32 300
+gsettings set org.gnome.desktop.screensaver lock-delay "uint32 300"
 info "Extensions"
-gsettings set org.gnome.shell enabled-extensions ['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com']
+gsettings set org.gnome.shell enabled-extensions "['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'user-theme@gnome-shell-extensions.gcampax.github.com']"
 info "Appearance"
 gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Moka'
@@ -36,5 +34,5 @@ gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.shell.calendar show-weekdate true
 #gsettings set org.gnome.desktop.interface show-battery-percentage true
 info "Typing"
-gsettings set org.gnome.desktop.input-sources xkb-options ['compose:ralt', 'caps:ctrl_modifier']
+gsettings set org.gnome.desktop.input-sources xkb-options "['compose:ralt', 'caps:ctrl_modifier']"
 info "Misc."
