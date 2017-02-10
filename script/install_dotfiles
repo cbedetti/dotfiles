@@ -64,8 +64,9 @@ link_file () {
 
     if [ "$backup" == "true" ]
     then
-      mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
+      date=`date +%Y%m%d-%H%M%S`
+      mv "$dst" "${dst}.backup${date}"
+      success "moved $dst to ${dst}.backup${date}"
     fi
 
     if [ "$skip" == "true" ]

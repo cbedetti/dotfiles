@@ -24,25 +24,28 @@ user "Do you want to continue ?"
 select i in "Yes" "Skip"; do
     case $i in
         Yes )
-            cmd="~/local/gnome-terminal-colors-solarized/install.sh"
+            cmd=${HOME}"/local/gnome-terminal-colors-solarized/install.sh"
             ${cmd} --install-dircolors -s dark -p dark
             ${cmd} --skip-dircolors -s light -p light
             info "Select 'Liberation Mono' size 14 for each profile"
-            ;
-        Skip ) break;;
+            break
+            ;;
+        Skip )
+            break
+            ;;
     esac
 done
 
 
 echo ""
 info "Install fonts"
-~/local/fonts/install.sh
+${HOME}/local/fonts/install.sh
 
 
 echo ""
 info "Install Lmod"
-cd ~/local/Lmod
-./configure --prefix=~/local/
+cd ${HOME}/local/Lmod
+./configure --prefix=${HOME}/local/
 make install
-sudo ln -s ~/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
+sudo ln -s ${HOME}/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
 

@@ -21,8 +21,14 @@ echo ""
 user "Desktop or server install ?"
 select i in "Desktop" "Server" "Quit"; do
     case $i in
-        Desktop ) ${SOURCE_DIR}/script/install_desktop;;
-        Server ) ${SOURCE_DIR}/script/install_server;;
+        Desktop )
+            ${SOURCE_DIR}/script/install_desktop
+            break
+            ;;
+        Server )
+            ${SOURCE_DIR}/script/install_server
+            break
+            ;;
         Quit ) exit;;
     esac
 done

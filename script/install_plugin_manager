@@ -7,14 +7,14 @@ source ${SOURCE_DIR}/print_functions.sh
 
 echo ""
 info "Install tmux plugin manager"
-dst=~/.tmux/plugins/tpm
-mkdir -p ${dst}
-git clone git@github.com:tmux-plugins/tpm ${dst}
+dst=${HOME}/.tmux/plugins
+mkdir -p ${dst} && cd ${dst}
+git clone https://www.github.com/tmux-plugins/tpm
 
 
 echo ""
 info "Install vim plugin manager"
-dst=~/.vim/bundle
-mkdir -p ${dst}
-git clone git@github.com:VundleVim/Vundle.vim.git ${dst}
+dst=${HOME}/.vim/bundle
+mkdir -p ${dst} && cd ${dst}
+git clone https://www.github.com/VundleVim/Vundle.vim.git
 vim +PluginInstall +qall
