@@ -8,9 +8,9 @@ export TERM="screen-256color"
 case "${HOSTNAME}" in
     leo | lynx)
         # dircolors settings
-        if [ -f ~/.dir_colors/dircolors ]
+        if [ -f ${HOME}/.dir_colors/dircolors ]
         then
-            eval `dircolors ~/.dir_colors/dircolors`
+            eval `dircolors ${HOME}/.dir_colors/dircolors`
         fi
 
         # Module settings

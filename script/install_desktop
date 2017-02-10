@@ -125,4 +125,6 @@ info "https://github.com/horst3180/arc-firefox-theme"
 info "https://addons.mozilla.org/en/firefox/collections/horst3180/a/"
 echo ""
 info "Firefox Sync"
+echo ""
+info "Select 'Liberation Mono' size 14 for each profile"
 

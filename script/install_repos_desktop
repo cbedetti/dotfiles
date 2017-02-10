@@ -27,7 +27,6 @@ select i in "Yes" "Skip"; do
             cmd=${HOME}"/local/gnome-terminal-colors-solarized/install.sh"
             ${cmd} --install-dircolors -s dark -p dark
             ${cmd} --skip-dircolors -s light -p light
-            info "Select 'Liberation Mono' size 14 for each profile"
             break
             ;;
         Skip )
