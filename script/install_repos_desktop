@@ -44,7 +44,8 @@ ${HOME}/local/fonts/install.sh
 echo ""
 info "Install Lmod"
 cd ${HOME}/local/Lmod
-./configure --prefix=${HOME}/local/
-make install
+sudo ./configure --prefix=${HOME}/local
+sudo make install
+sudo chmod 644 ${HOME}/local/lmod/lmod/init/profile
 sudo ln -s ${HOME}/local/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh
 

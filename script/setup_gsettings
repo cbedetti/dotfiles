@@ -36,3 +36,7 @@ gsettings set org.gnome.shell.calendar show-weekdate true
 info "Typing"
 gsettings set org.gnome.desktop.input-sources xkb-options "['compose:ralt', 'caps:ctrl_modifier']"
 info "Misc."
+gsettings set org.gnome.desktop.sound event-sounds false
+info "Terminal Font"
+#gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type=boolean false
+#gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 11"
