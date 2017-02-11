@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
+source ${SOURCE_DIR}/print_functions.sh
+
+
+echo ""
+info "Install dotfiles"
+${SOURCE_DIR}/install_dotfiles
+
+
+echo ""
+info "Install plugin managers"
+${SOURCE_DIR}/install_plugin_manager
+
+
+echo ""
+info "Tmux plugin manager: prefix + I in a tmux session to finish install"
+

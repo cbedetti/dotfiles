@@ -17,18 +17,27 @@ select yn in "Yes" "No"; do
     esac
 done
 
+
 echo ""
-user "Desktop or server install ?"
-select i in "Desktop" "Server" "Quit"; do
+user "What kind of install ?"
+info "  Simple: only dotfiles and plugin manager"
+info "  Server: simple install + private install scripts"
+info "  Desktop: full Ubuntu install"
+select i in "Simple" "Server" "Desktop" "Quit"; do
     case $i in
-        Desktop )
-            ${SOURCE_DIR}/script/install_desktop
+        Simple )
+            ${SOURCE_DIR}/script/install_simple
             break
             ;;
         Server )
             ${SOURCE_DIR}/script/install_server
             break
             ;;
+        Desktop )
+            ${SOURCE_DIR}/script/install_desktop
+            break
+            ;;
         Quit ) exit;;
     esac
 done
+

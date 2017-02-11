@@ -11,14 +11,10 @@ info "Make usefull directories & links"
 mkdir ${HOME}/local
 mkdir ${HOME}/Projets
 mkdir ${HOME}/Sandbox
-ln -sf ${HOME}/dotfiles/modulefiles ${HOME}/.modulefiles
+ln -s ${HOME}/dotfiles/bin ${HOME}
+ln -s ${HOME}/dotfiles/modulefiles ${HOME}/local
 chmod -R 700 ${HOME}/dotfiles/private/ssh
 chmod 600 ${HOME}/dotfiles/private/ssh/*
-
-
-echo ""
-info "Install dotfiles"
-${SOURCE_DIR}/install_dotfiles
 
 
 echo ""
@@ -58,7 +54,7 @@ sudo apt upgrade -y
 
 echo ""
 info "Install a bunch of stuff"
-sudo apt install -y build-essential cmake colordiff curl gimp git gnome-tweak-tool gnucash htop keepassx libreoffice pandoc solaar texlive tmux vim vlc
+sudo apt install -y build-essential cmake colordiff curl gimp git gnucash htop keepassx libreoffice lmod pandoc solaar texlive tmux vim vlc
 #clementine hexchat inkscape powertop sparkleshare xdotool
 sudo apt install -y arc-theme
 sudo apt install -y dropbox
@@ -67,7 +63,13 @@ sudo apt install -y spotify-client
 sudo apt install -y steam
 #Slack
 sudo apt install -y ${HOME}"/dotfiles/private/src/slack-desktop-2.4.2-amd64.deb"
+#Freesurfer
+sudo apt install -y tcsh
 sudo apt upgrade -y
+sudo apt autoremove -y
+
+
+${SOURCE_DIR}/install_simple
 
 
 echo ""
@@ -86,22 +88,12 @@ fi
 
 
 echo ""
-info "Install plugin managers"
-${SOURCE_DIR}/install_plugin_manager
-
-
-echo ""
 info "Setup gsettings"
 ${SOURCE_DIR}/setup_gsettings
 
 
 echo ""
-info "Cleaning up"
-sudo apt autoremove -y
-
-
-echo ""
-cmd="${SOURCE_DIR}/private/install_src"
+cmd=${HOME}"/dotfiles/private/install_src"
 if [[ -f "${cmd}" ]]
 then
     info "Install sofwares from private/src"
@@ -109,22 +101,22 @@ then
     ${cmd}
 fi
 
+sudo apt install -y gnome-tweak-tool
 
 echo ""
-success " All install done"
+success " All install done !!"
 echo ""
 user "Things to do:"
-echo ""
-info "YouCompleteMe not compile"
-info "launch 'script/compile_YouCompleteMe' after loading anaconda"
-echo ""
-info "Tmux plugin manager: prefix + I in a tmux session"
-echo ""
-info "Arc for Firefox"
-info "https://github.com/horst3180/arc-firefox-theme"
-info "https://addons.mozilla.org/en/firefox/collections/horst3180/a/"
-echo ""
-info "Firefox Sync"
-echo ""
-info "Select 'Liberation Mono' size 14 for each profile"
+#info "YouCompleteMe not compile"
+#info "launch 'script/compile_YouCompleteMe' after loading anaconda"
+info "1. DropBox"
+info "2. Tmux plugin manager: prefix + I in a tmux session"
+info "3. Arc for Firefox"
+info "    https://github.com/horst3180/arc-firefox-theme"
+info "    https://addons.mozilla.org/en/firefox/collections/horst3180/a/"
+info "4. Firefox Sync"
+info "5. In about:config set browser.backspace_action to 0"
+info "6. Liberation Mono (14) for each profile"
+info ""
+info "RESTART !o!"
 

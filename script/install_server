@@ -3,51 +3,48 @@
 
 SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 source ${SOURCE_DIR}/print_functions.sh
+#RELEASE="$(lsb_release -sc)"
 
 
 echo ""
-info "Make usefull directories"
-#ln -s ${HOME}/dotfiles/private/local ${HOME}
-#ln -s ${SCRATCH} ${HOME}/scratch
+info "Make usefull directories & links"
+mkdir ${HOME}/local
+mkdir ${HOME}/Projets
+mkdir ${HOME}/Sandbox
+ln -s ${HOME}/dotfiles/bin ${HOME}
+#ln -s ${HOME}/dotfiles/modulefiles ${HOME}/local
+chmod -R 700 ${HOME}/dotfiles/private/ssh
+chmod 600 ${HOME}/dotfiles/private/ssh/*
+
+
+${SOURCE_DIR}/install_simple
 
 
 echo ""
-info "Github"
-githublist=(
-    'https://github.com/MRtrix3/mrtrix3.git'
-    'https://github.com/VundleVim/Vundle.vim.git'
-)
-GITHUB_DIR=${HOME}/local/github
-mkdir -p ${GITHUB_DIR}
-cd ${GITHUB_DIR}
-for link in "${githublist[@]}"; do
-    info "cloning "${link}
-    git clone ${link}
-done
+cmd=${HOME}"/dotfiles/private/install_git_repos"
+if [[ -f "${cmd}" ]]
+then
+    info "Install git repos"
+    chmod u+x ${cmd}
+    ${cmd}
+fi
 
 
 echo ""
-info "Install dotfiles: requires clicks"
-${SOURCE_DIR}/script/install_dotfiles
+cmd=${HOME}"/dotfiles/private/install_src"
+if [[ -f "${cmd}" ]]
+then
+    info "Install sofwares from private/src"
+    chmod u+x ${cmd}
+    ${cmd}
+fi
 
 
 echo ""
-info "Install vim plugin"
-dst=${HOME}/.vim/bundle
-mkdir -p ${dst}
-ln -s ${GITHUB_DIR}/Vundle.vim ${dst}
-vim +PluginInstall +qall
-
-
+success " All install done !!"
 echo ""
-info "Setup dotfiles origin remote"
-cmd="${SOURCE_DIR}/private/setup_dotfiles_origin"
-[ -f "${cmd}" ] && ${cmd}
-
-
-echo ""
-success " All install done"
-echo ""
-info "YouCompleteMe not compile"
-info "launch 'script/compile_YouCompleteMe' after loading anaconda"
+user "Things to do:"
+#info "YouCompleteMe not compile"
+#info "launch 'script/compile_YouCompleteMe' after loading anaconda"
+info "1. Tmux plugin manager: prefix + I in a tmux session"
 
