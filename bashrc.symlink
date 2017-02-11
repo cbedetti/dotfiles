@@ -14,7 +14,7 @@ case "${HOSTNAME}" in
         fi
 
         # Module settings
-        module use ${HOME}/.modulefiles
+        module use ${HOME}/local/modulefiles
         module load anaconda
         module load fsl
         module load freesurfer
