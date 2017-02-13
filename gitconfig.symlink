@@ -18,4 +18,5 @@
     editor = vim
 [help]
     autocorrect = 10
-
+[push]
+    default = simple
