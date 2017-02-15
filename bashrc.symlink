@@ -52,13 +52,14 @@ case "${HOSTNAME}" in
         PATH=${PATH}:/home/bpinsard/data/bin/afni_openmp_64
         export PATH
         ;;
-    #*)
-        #if [ "${BQMAMMOUTH}" -eq "mp2" ]
-        #then
+    *)
+        if [ "${BQMAMMOUTH}" = "mp2" ]
+        then
             #TOADDIR=/netmount/ip01_home/cbedetti/local/toad
             #source ${TOADDIR}/etc/unf-toad-config.sh
-        #else
-            #echo -e "\nServer '${HOSTNAME}' is not known\n"
-        #fi
-        #;;
+            source ${HOME}/.bashrc_mp2
+        else
+            echo -e "\nServer '${HOSTNAME}' is not known\n"
+        fi
+        ;;
 esac
