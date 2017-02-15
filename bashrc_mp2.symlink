@@ -1,0 +1,85 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    source /etc/bashrc
+fi
+
+
+# Modules
+if [ -z "$BASHRC_READ" ]; then
+    export BASHRC_READ=1
+    module load cmake #2016-09-20: 3.6.1
+    module load openmpi_gcc64 #2016-09-20: 1.10.3
+    module load python64/2.7.10
+    module load eigen/3.2.0
+    module load qt64/4.8.6
+    module load intel64/14.0.0.080 # for numpy
+    #scipy
+    module load libxml2/2.8.0
+    module load libxslt/1.1.26
+fi
+
+# TOAD
+#source /netmount/ip01_home/cbedetti/local/toad/etc/unf-toad-config.sh
+#source /netmount/ip01_home/borear/softs/toad/etc/unf-toad-config.sh
+
+# PATH
+#export PYTHONPATH=/home/cbedetti/local/Dcm2Bids:$PYTHONPATH
+#export CPATH=/home/cbedetti/local/yaml/usr/local/include:$CPATH
+#export LIBRARY_PATH=/home/cbedetti/local/yaml/usr/local/lib:$LIBRARY_PATH
+
+#DTI-TK
+#export DTITK_ROOT=/home/cbedetti/local/dtitk-2.3.1-Linux-x86_64
+#export PATH=${DTITK_ROOT}/bin:${DTITK_ROOT}/utilities:${DTITK_ROOT}/scripts:${PATH}
+#export DTITK_USE_QSUB=1
+
+# tractconverter
+#git clone https://github.com/MarcCote/tractconverter.git
+#python setup.py build
+#export PYTHONPATH=/home/cbedetti/local/tractconverter:$PYTHONPATH
+#export PATH=/home/cbedetti/local/tractconverter/scripts:$PATH
+
+# SCILPY Configuration
+#pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+#git clone git@bitbucket.org:sciludes/scilpy.git
+#pip install --user https://github.com/MarcCote/tractconverter/archive/master.zip
+#pip install -r requirements.txt --user
+#python setup.py build_no_gsl
+#pip install --user --upgrade dipy
+#pip install --user --upgrade pillow
+export PYTHONPATH=/home/cbedetti/local/scilpy:$PYTHONPATH
+export PATH=/home/cbedetti/local/scilpy/scripts:$PATH
+export PYTHONPATH=/home/borear/.local/lib/python2.7/site-packages/nibabel:$PYTHONPATH
+
+# tract_querier
+#git clone https://github.com/demianw/tract_querier.git
+#export PYTHONPATH=/home/cbedetti/local/tract_querier:$PYTHONPATH
+#export PATH=/netmount/ip01_home/cbedetti/local/tract_querier/scripts:$PATH
+#export LD_LIBRARY_PATH=/netmount/ip01_home/cbedetti/local/app_toad/vtk/lib:$LD_LIBRARY_PATH
+
+#Freesurfer configuration
+#export FREESURFER_HOME=/netmount/ip01_home/cbedetti/local/app_toad/freesurfer
+#export FSFAST_HOME=$FREESURFER_HOME/fsfast
+#export MINC_BIN_DIR=$FREESURFER_HOME/mni/bin
+#export MINC_LIB_DIR=$FREESURFER_HOME/mni/lib
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$FREESURFER_HOME/lib
+#export PERL5LIB=$FREESURFER_HOME/mni/lib/perl5/5.8.5:$PERL5LIB
+#export PATH=$FREESURFER_HOME/mni/bin:$FREESURFER_HOME/bin:$FREESURFER_HOME/tktools:$PATH
+
+# FSL Configuration
+FSLDIR=/netmount/ip01_home/cbedetti/local/app_toad/fsl
+export FSLOUTPUTTYPE=NIFTI_GZ
+export FSLEDITOR=vi
+PATH=${FSLDIR}/bin:${PATH}
+. ${FSLDIR}/etc/fslconf/fsl.sh
+export FSLDIR PATH
+
+# ants
+export PATH=/home/cbedetti/local/antsbin/bin:$PATH
+
+# itksnap
+export PATH=/home/cbedetti/local/itksnap/bin:$PATH
+
+# c3d
+export PATH=/home/cbedetti/local/c3d/bin:$PATH
