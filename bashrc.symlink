@@ -59,7 +59,8 @@ case "${HOSTNAME}" in
             #source ${TOADDIR}/etc/unf-toad-config.sh
             source ${HOME}/.bashrc_mp2
         else
-            echo -e "\nServer '${HOSTNAME}' is not known\n"
+            #echo -e "\nServer '${HOSTNAME}' is not known\n"
+            :
         fi
         ;;
 esac
