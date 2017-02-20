@@ -40,3 +40,11 @@ gsettings set org.gnome.desktop.sound event-sounds false
 info "Terminal Font"
 #gconftool-2 --set /apps/gnome-terminal/profiles/Default/use_system_font --type=boolean false
 #gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Ubuntu Mono derivative Powerline 11"
+
+if [ ${HOSTNAME} -eq "tiger" ]
+then
+    gsettings set org.gnome.settings-daemon.peripherals.keyboard numlock-state 'on'
+    gsettings set org.gnome.desktop.screensaver lock-enabled 'false'
+    # Monday as first day of the week
+    echo "LC_TIME=\"en_GB.UTF-8\"" | sudo tee -a /etc/default/locale
+fi

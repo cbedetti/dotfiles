@@ -6,7 +6,7 @@ export TERM="screen-256color"
 
 # Specific configuration for each host
 case "${HOSTNAME}" in
-    leo | lynx)
+    lynx | tiger)
         # dircolors settings
         if [ -f ${HOME}/.dir_colors/dircolors ]
         then

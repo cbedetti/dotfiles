@@ -117,6 +117,7 @@ info "    https://addons.mozilla.org/en/firefox/collections/horst3180/a/"
 info "4. Firefox Sync"
 info "5. In about:config set browser.backspace_action to 0"
 info "6. Liberation Mono (14) for each profile"
+info "7. Add French and let Ubuntu install packages"
 info ""
 info "RESTART !o!"
 
