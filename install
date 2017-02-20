@@ -6,8 +6,8 @@ source ${SOURCE_DIR}/script/print_functions.sh
 
 
 echo ""
-info "If you have a private directory, copy it"
-info "in your dotfiles directory before continue"
+info "If you have a private directory, copy it in your dotfiles directory"
+info "and setup your ssh credentials before continue"
 info ""
 user "Do you wish to do the install now ?"
 select yn in "Yes" "No"; do
