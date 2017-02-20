@@ -8,13 +8,22 @@ RELEASE="$(lsb_release -sc)"
 
 echo ""
 info "Make usefull directories & links"
-mkdir ${HOME}/local
-mkdir ${HOME}/Projets
-mkdir ${HOME}/Sandbox
+for path in local Projets Sandbox
+do
+    mkdir -p ${HOME}/${path}
+done
+#mkdir ${HOME}/local
+#mkdir ${HOME}/Projets
+#mkdir ${HOME}/Sandbox
 ln -s ${HOME}/dotfiles/bin ${HOME}
 ln -s ${HOME}/dotfiles/modulefiles ${HOME}/local
-chmod -R 700 ${HOME}/dotfiles/private/ssh
-chmod 600 ${HOME}/dotfiles/private/ssh/*
+if [ -d ${HOME}/dotfiles/private/ssh ]
+then
+    chmod -R 700 ${HOME}/dotfiles/private/ssh
+    chmod 600 ${HOME}/dotfiles/private/ssh/*
+    mkdir -p ${HOME}/.ssh
+    cp ${HOME}/dotfiles/private/ssh/id_rs* ${HOME}/.ssh
+fi
 
 
 echo ""

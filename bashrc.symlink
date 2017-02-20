@@ -18,6 +18,9 @@ case "${HOSTNAME}" in
         module load anaconda
         module load fsl
         module load freesurfer
+        module load matlab
+        module load ANTs
+        module load vlpp
 
         #Other
         # mrtrix3

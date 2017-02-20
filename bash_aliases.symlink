@@ -2,10 +2,14 @@
 
 # Determine active Python virtualenv details.
 function set_virtualenv () {
-    if test -z "$VIRTUAL_ENV" ; then
-        PROMPT_VIRTUALENV=""
-    else
+    if [ ! -z ${VIRTUAL_ENV+x} ]
+    then
         PROMPT_VIRTUALENV="${YELLOW}(`basename \"$VIRTUAL_ENV\"`)"
+    elif [ ! -z ${CONDA_DEFAULT_ENV+x} ]
+    then
+        PROMPT_VIRTUALENV="${YELLOW}(`basename \"$CONDA_DEFAULT_ENV\"`)"
+    else
+        PROMPT_VIRTUALENV=""
     fi
 }
 
