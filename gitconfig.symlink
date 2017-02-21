@@ -6,6 +6,7 @@
     ci = commit
     co = checkout
     di = diff
+    lg = log --oneline --graph --decorate
     st = status
     count = !git shortlog -sn
 [color]
