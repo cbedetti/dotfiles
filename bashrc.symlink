@@ -58,18 +58,12 @@ case "${HOSTNAME}" in
     lg-1r1?-n0?)
         # Modules
         module use /sf1/project/yai-974-aa/local/modulefiles
-        #if [ -z "$BASHRC_READ" ]; then
         if [ -z "$BASHRC_READ" ] || [ -n "$TMUX" ]; then
             export BASHRC_READ=1
-            #export MATLAB_SYLVIA="LOAD"
-            #export PYTHON_VILLENEUVE_LAB="3.5.0"
-            # guillimin
-            #pip install --target=${PYTHON_INSTALL_DIR} nipype
-            #module load VilleneuveLab
+            module load VilleneuveLab
+            # pet_pipeline
+            module load vlpp/dev
         fi
-
-        # pet_pipeline
-        #module load vlpp/dev
         ;;
     *)
         if [ "${BQMAMMOUTH}" = "mp2" ]
