@@ -6,6 +6,11 @@ source ${SOURCE_DIR}/print_functions.sh
 
 
 echo ""
+info "git-completion"
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ${HOME}/.git-completion.bash
+
+
+echo ""
 info "Install dotfiles"
 ${SOURCE_DIR}/install_dotfiles
 

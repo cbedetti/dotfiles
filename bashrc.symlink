@@ -1,6 +1,9 @@
 # Load ~/.bash_aliases
 [[ -f "${HOME}/.bash_aliases" ]] && source ${HOME}/.bash_aliases
 
+# Completion
+test -f ${HOME}/.git-completion.bash && source $_
+
 # tmux
 export TERM="screen-256color"
 
@@ -61,8 +64,15 @@ case "${HOSTNAME}" in
         if [ -z "$BASHRC_READ" ] || [ -n "$TMUX" ]; then
             export BASHRC_READ=1
             module load VilleneuveLab
+            #module load freesurfer/6.0.0
+            module load QAtools-fs/1.2
             # pet_pipeline
-            module load vlpp/dev
+            #module load vlpp/dev
+            # scilpy
+            module load GSL
+            PYTHONPATH=/sb/home/cbedetti/local/scilpy:$PYTHONPATH
+            PYTHONPATH=/sb/home/cbedetti/local/tractconverter:$PYTHONPATH
+            export PYTHONPATH
         fi
         ;;
     *)
