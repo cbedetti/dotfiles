@@ -1,6 +1,7 @@
 # General Configuration
 
 # Windows and panes numbering
+# http://stackoverflow.com/questions/35016458/how-to-write-if-statement-in-tmux-conf-to-set-different-options-for-different-t
 set -g renumber-windows on
 set -g base-index 1
 setw -g pane-base-index 1
