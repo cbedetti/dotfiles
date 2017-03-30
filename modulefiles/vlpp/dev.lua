@@ -12,5 +12,5 @@ whatis("URL         : htts://github.com/TBA")
 whatis("Created on  : 2017-02-14")
 
 dir=os.getenv("HOME") .. "/local" or ""
-prepend_path("PATH", dir .. "/vlpp-dev/bin")
+prepend_path("PATH", dir .. "/vlpp/bin")
 

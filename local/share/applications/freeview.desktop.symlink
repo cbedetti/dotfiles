@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Freeview
+Comment=View Neuroimaging data
+Exec=freeview %F
+Icon=freeview
+Type=Application
+Categories=GTK;GNOME;Utility;
