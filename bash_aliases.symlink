@@ -46,7 +46,7 @@ alias tmkillcheval="tmux kill-session -t cheval"
 # ssh
 for host in `cat ${HOME}/.ssh/config | grep "Host " | cut -d" " -f2`
 do
-    alias ${host}="ssh -X ${host}"
+    alias ${host}="echo -ne \"\\033]0;${host}\\007\"; ssh -X ${host};"
 done
 
 
