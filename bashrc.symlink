@@ -55,9 +55,20 @@ case "${HOSTNAME}" in
     *)
         if [ "${BQMAMMOUTH}" = "mp2" ]
         then
+            # Source global definitions
+            if [ -f /etc/bashrc ]; then
+                source /etc/bashrc
+            fi
+            # Modules
+            BASHRC_READ=1
+            if [ -z "$BASHRC_READ" ]; then
+                export BASHRC_READ=1
+                module load anaconda64
+            fi
             #TOADDIR=/netmount/ip01_home/cbedetti/local/toad
             #source ${TOADDIR}/etc/unf-toad-config.sh
-            source ${HOME}/.bashrc_mp2
+            export PATH=/home/cbedetti/local/dcm2bids/scripts:$PATH
+            export PYTHONPATH=/home/cbedetti/local/dcm2bids:$PYTHONPATH
         else
             #echo -e "\nServer '${HOSTNAME}' is not known\n"
             :

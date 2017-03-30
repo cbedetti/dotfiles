@@ -27,6 +27,9 @@ bind -n M-Down select-pane -D
 bind | split-window -h
 bind - split-window -v
 
+# Synchronize panels
+#bind -n C-s setw synchronize-panes on
+#bind -n M-s setw synchronize-panes off
 
 #~~~~~~~~~~~~~#
 # Status Line #
