@@ -21,6 +21,7 @@ case "${HOSTNAME}" in
         module load matlab
         module load ANTs
         module load vlpp
+        module load dcm2niix
 
         #Other
         # mrtrix3
@@ -33,8 +34,8 @@ case "${HOSTNAME}" in
         # virtual env wrapper
         #source /usr/local/bin/virtualenvwrapper.sh
         # Dcm2Bids
-        #export PYTHONPATH=${PYTHONPATH}:/home/chris/local/Dcm2Bids
-        #export PATH=${PATH}:/home/chris/local/Dcm2Bids/bin
+        export PYTHONPATH=/home/chris/local/dcm2bids:${PYTHONPATH}
+        export PATH=/home/chris/local/dcm2bids/scripts:${PATH}
         # dcmstack
         #export PYTHONPATH=${PYTHONPATH}:/home/chris/local/dcmstack
         # java
