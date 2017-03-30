@@ -1,5 +1,41 @@
 #!/bin/bash
 
+case "${HOSTNAME}" in
+    scinet0?-ib0 | gpc-f*n*-ib0)
+        if [ -f /etc/profile ]; then
+            . /etc/profile
+        fi
+
+        # commands which work for both GPC and TCS can go here
+        export PATH=${HOME}/bin:${PATH}
+
+        alias passwd='echo "Please use the SciNet portal to change password: https://portal.scinet.utoronto.ca/change_password"'
+
+        HOST=$(uname)
+
+        if [ "${HOST}" == "AIX" ]
+        then
+            # do things for the TCS machine
+            alias llq1='/xcat/tools/tcs-scripts/LL/jobState.sh'
+            alias llstat='/xcat/tools/tcs-scripts/LL/jobSummary.sh'
+
+            if [ "${TERM}" = "xterm-color" ]; then
+                export TERM=xterm
+            fi
+
+            # user environment for login shells goes here
+            # replace colon with your own commands
+            :
+        else
+            # do things for the GPC machine
+            # user environment for login shells goes here
+            # replace colon with your own commands
+            :
+
+        fi
+        ;;
+esac
+
 # Load ~/.bashrc
 [[ -f "${HOME}/.bashrc" ]] && source ${HOME}/.bashrc
 

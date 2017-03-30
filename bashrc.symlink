@@ -10,6 +10,7 @@ export TERM="screen-256color"
 # Specific configuration for each host
 case "${HOSTNAME}" in
     lynx | tiger)
+        module () { eval $($LMOD_CMD bash $*); }
         # dircolors settings
         if [ -f ${HOME}/.dir_colors/dircolors ]
         then
@@ -74,6 +75,23 @@ case "${HOSTNAME}" in
             PYTHONPATH=/sb/home/cbedetti/local/tractconverter:$PYTHONPATH
             export PYTHONPATH
         fi
+        ;;
+    scinet0?-ib0 | gpc-f*n*-ib0)
+        if [ -f /etc/bashrc ]; then
+               . /etc/bashrc
+        fi
+        # From Gabriel for MAGeT
+        module use -a /project/m/mchakrav/quarantine/modules
+        module load /project/m/mchakrav/quarantine/modules/quarantine
+        module load nano extras
+        export MALLOC_ARENA_MAX=4
+
+        # MAGetDocker
+        #export PATH=/home/s/sbramba/cbedetti/local/MAGeTDocker:${PATH}
+
+        # For MAGeT analysis
+        alias source_maget="source ~/local/MAGeTbrain/bin/activate; module load scinet"
+        alias source_maget2017="source ~/local/MAGeTbrain/bin/activate; module load scinet-2017"
         ;;
     *)
         if [ "${BQMAMMOUTH}" = "mp2" ]

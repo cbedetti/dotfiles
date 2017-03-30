@@ -2,7 +2,10 @@
 
 # Determine active Python virtualenv details.
 function set_virtualenv () {
-    if [ ! -z ${VIRTUAL_ENV+x} ]
+    if [ ! -z ${MB_ENV+x} ]
+    then
+        PROMPT_VIRTUALENV="${YELLOW}(`basename \"$MB_ENV\"`)"
+    elif [ ! -z ${VIRTUAL_ENV+x} ]
     then
         PROMPT_VIRTUALENV="${YELLOW}(`basename \"$VIRTUAL_ENV\"`)"
     elif [ ! -z ${CONDA_DEFAULT_ENV+x} ]
@@ -52,7 +55,6 @@ done
 
 # Functions
 dush () { du -sh "$@"* | sort -h; }
-module () { eval $($LMOD_CMD bash $*); }
 
 
 # Solarized gnome-terminal
