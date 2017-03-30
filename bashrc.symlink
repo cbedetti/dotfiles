@@ -59,6 +59,8 @@ case "${HOSTNAME}" in
         export PATH
         ;;
     lg-1r1?-n0?)
+        #Building with cmake
+        #module load GCC/4.9.3-2.25 CMake/3.6.1
         # Modules
         module use /sf1/project/yai-974-aa/local/modulefiles
         if [ -z "$BASHRC_READ" ]; then #if tmux interaction "|| [ -n "$TMUX" ]"
