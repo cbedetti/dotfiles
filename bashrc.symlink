@@ -44,6 +44,9 @@ case "${HOSTNAME}" in
         # ants
         #export ANTSPATH=/home/chris/local/ants/antsbin/bin
         #export PATH=${PATH}:${ANTSPATH}
+        alias vim="nvim"
+        #Rust
+        export PATH=${HOME}/.cargo/bin:$PATH
         ;;
     stark | magma)
         # toad
