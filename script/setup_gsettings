@@ -47,4 +47,10 @@ then
     gsettings set org.gnome.desktop.screensaver lock-enabled 'false'
     # Monday as first day of the week
     echo "LC_TIME=\"en_GB.UTF-8\"" | sudo tee -a /etc/default/locale
+    #https://help.ubuntu.com/community/AutomaticallyMountPartitions
+    #User
+    #udisksctl mount --block-device /dev/disk/by-uuid/E036685B366834A6
+    #http://sourcedigit.com/15907-how-to-mount-partitions-automatically-in-ubuntu-15-0414-1014-04/
+    echo "/dev/disk/by-uuid/E036685B366834A6 /mnt/HeelFlip auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+    sudo apt install openssh-server
 fi
