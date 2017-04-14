@@ -89,9 +89,7 @@ set smarttab         " Make TAB insert indents instead of tabs at the
 
 " Line numbers
 set number           " Enable line numbers
-if exists('+relativenumber')
-    set relativenumber   " Enable relative line number
-endif
+set relativenumber   " Enable relative line number
 " :highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=DarkGrey gui=NONE guifg=DarkGrey guibg=NONE
 
 

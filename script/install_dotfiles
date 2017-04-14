@@ -103,8 +103,10 @@ install_dotfiles () {
         dst=${dst/"-"/"/"}
     fi
 
-    #echo "$src" "$dst"
-    link_file "$src" "$dst"
+    src_rel=$(realpath --relative-to=$(dirname ${dst}) ${src})
+
+    #echo "$src_rel" "$dst"
+    link_file "$src_rel" "$dst"
   done
 }
 

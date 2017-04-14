@@ -43,6 +43,9 @@ sudo apt-add-repository -y 'deb http://linux.dropbox.com/ubuntu xenial main'
 info "Moka"
 sudo apt-add-repository -y ppa:moka/daily
 
+info "Neovim"
+sudo apt-add-repository -y ppa:neovim-ppa/stable
+
 # No need for Ubuntu 16.04
 #info "Solaar"
 #sudo apt-add-repository -y ppa:daniel.pavel/solaar
@@ -63,11 +66,12 @@ sudo apt upgrade -y
 
 echo ""
 info "Install a bunch of stuff"
-sudo apt install -y build-essential cmake colordiff curl gimp git gnucash htop keepassx libreoffice lmod pandoc solaar texlive tmux vim vlc
+sudo apt install -y build-essential cmake colordiff curl gimp git gnucash htop keepassx libreoffice lmod pandoc solaar texlive tmux vlc
 #clementine hexchat inkscape powertop sparkleshare xdotool
 sudo apt install -y arc-theme
 sudo apt install -y dropbox
 sudo apt install -y moka-icon-theme
+sudo apt install -y neovim
 sudo apt install -y spotify-client
 sudo apt install -y steam
 #Slack
@@ -78,7 +82,24 @@ sudo apt upgrade -y
 sudo apt autoremove -y
 
 
+echo ""
+info "Install Rust"
+s="install_rust"
+curl https://sh.rustup.rs -sSf > ${s}
+chmod u+x ${s}
+./${s} --no-modify-path -y
+rm ${s}
+
+
 ${SOURCE_DIR}/install_simple
+
+
+echo ""
+info "Build vim-markdown-composer"
+orig=$(pwd)
+cd ${HOME}/.vim/bundle/vim-markdown-composer/
+${HOME}/.cargo/bin/cargo build --release
+cd ${orig}
 
 
 echo ""
