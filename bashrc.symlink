@@ -53,6 +53,7 @@ case "${HOSTNAME}" in
         #export ANTSPATH=/home/chris/local/ants/antsbin/bin
         #export PATH=${PATH}:${ANTSPATH}
         alias vim="nvim"
+        alias diff="colordiff"
         #Rust
         export PATH=${HOME}/.cargo/bin:$PATH
         ;;
