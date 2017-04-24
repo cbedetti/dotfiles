@@ -35,7 +35,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias diff="colordiff"
 #eval $(dircolors -b $HOME/.config/LS_COLORS/LS_COLORS)
 alias ls='ls --color=auto'
 alias la="ls -A"
@@ -57,13 +56,10 @@ done
 dush () { du -sh "$@"* | sort -h; }
 
 
-# Solarized gnome-terminal
-dark () {
-    ~/local/github/gnome-terminal-colors-solarized/set_dark.sh
-}
-light () {
-    ~/local/github/gnome-terminal-colors-solarized/set_light.sh
-}
+# Switch gnome-terminal profiles
+delay=75
+alias dark="xdotool key --delay "${delay}" Alt+t p Return"
+alias light="xdotool key --delay "${delay}" Alt+t p Down Return"
 
 # Reset sound settings if not working after HDMI use
 # https://help.ubuntu.com/community/SoundTroubleshootingProcedure
