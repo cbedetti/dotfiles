@@ -58,11 +58,14 @@ case "${HOSTNAME}" in
         export PATH=${HOME}/.cargo/bin:$PATH
         ;;
     stark | magma)
-        # toad
-        source /usr/local/toad/etc/unf-toad-config.sh
-        # afni
-        PATH=${PATH}:/home/bpinsard/data/bin/afni_openmp_64
-        export PATH
+        module use /data/brambati/local/modulefiles
+        if [ -z "$BASHRC_READ" ]; then
+            export BASHRC_READ=1
+            module load LinguaLab
+            # afni
+            PATH=${PATH}:/home/bpinsard/data/bin/afni_openmp_64
+            export PATH
+        fi
         ;;
     lg-1r1?-n0? | sw-?r??-n??)
         #Building with cmake
