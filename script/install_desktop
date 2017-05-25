@@ -73,7 +73,7 @@ sudo apt install -y \
     curl \
     gimp \
     git \
-    gnucash \
+    gnucash libdbd-sqlite3\
     gramps \
     htop \
     keepassx \
