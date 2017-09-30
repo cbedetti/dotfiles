@@ -85,6 +85,7 @@ sudo apt install -y \
     tmux \
     vlc \
     xdotool
+# For win10 sound: https://stackoverflow.com/a/28171379
 #clementine hexchat inkscape powertop sparkleshare xdotool
 sudo apt install -y arc-theme
 sudo apt install -y dropbox
