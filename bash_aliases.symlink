@@ -45,16 +45,27 @@ alias lsd="ls -F | grep /$ | cut -d"/" -f1"
 alias reload="source ${HOME}/.bashrc"
 alias tmux="tmux -2"
 alias tmkillcheval="tmux kill-session -t cheval"
+
 # ssh
 for host in `cat ${HOME}/.ssh/config | grep "Host " | cut -d" " -f2`
 do
     alias ${host}="echo -ne \"\\033]0;${host}\\007\"; ssh -X ${host};"
 done
-
+function cicws {
+    echo -ne "\\033]0;cicws\\007"
+    n=$(shuf -i1-10 -n1)
+    n=$(printf %02d ${n})
+    ssh -X bedchr@cicws${n}
+}
 
 # Functions
-dush () { du -sh "$@"* | sort -h; }
-
+dush () {
+    du -sh "$@"* | sort -h
+}
+rsync_include () {
+    cmd="rsync -av --include='*/' --include='${1}' --exclude='*' ${2} ${3}"
+    echo $cmd | sh
+}
 
 # Switch gnome-terminal profiles
 delay=75
