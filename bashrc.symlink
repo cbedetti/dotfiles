@@ -18,14 +18,14 @@ case "${HOSTNAME}" in
         fi
 
         # Module settings
-        module use ${HOME}/local/modulefiles
-        module load anaconda
-        module load fsl
-        module load freesurfer
-        module load matlab
-        module load ANTs
-        module load vlpp
-        module load dcm2niix
+        #module use ${HOME}/local/modulefiles
+        #module load anaconda
+        #module load fsl
+        #module load freesurfer
+        #module load matlab
+        #module load ANTs
+        #module load vlpp
+        #module load dcm2niix
 
         #Other
         # mrtrix3
@@ -56,6 +56,8 @@ case "${HOSTNAME}" in
         alias diff="colordiff"
         #Rust
         export PATH=${HOME}/.cargo/bin:$PATH
+        # added by Miniconda3 4.3.21 installer
+        export PATH="/home/chris/miniconda3/bin:$PATH"
         ;;
     stark | magma)
         module use /data/brambati/local/modulefiles
@@ -129,3 +131,4 @@ case "${HOSTNAME}" in
         fi
         ;;
 esac
+
