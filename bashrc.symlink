@@ -26,6 +26,7 @@ case "${HOSTNAME}" in
         module load ANTs
         module load vlpp
         module load dcm2niix
+        module load itksnap
 
         #Other
         # mrtrix3

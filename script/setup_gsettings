@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#https://doc.ubuntu-fr.org/intel_graphics
+#lynx: Integrated Intel® HD Graphics 5300
 
 SOURCE_DIR="$(cd "$(dirname "$0")" && pwd)"
 source ${SOURCE_DIR}/print_functions.sh
