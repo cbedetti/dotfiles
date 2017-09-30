@@ -1,0 +1,41 @@
+#!/bin/bash
+
+
+echo ""
+echo "This script will install the latest Linux 64-bit version of conda from:"
+echo "https://conda.io/miniconda.html"
+echo "Do you wish to do the preinstall now ?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) break;;
+        No ) exit;;
+    esac
+done
+
+repo="https://repo.continuum.io/miniconda"
+shFile="Miniconda3-latest-Linux-x86_64.sh"
+shLink=${repo}"/"${shFile}
+tmpDir=${HOME}/tmp
+
+mkdir -p ${tmpDir}
+cd ${tmpDir}
+rm ${shFile}
+wget ${shLink}
+
+curlRsl=$(curl ${repo}/ | grep -A 3 ${shFile/.sh} | tail -n 1)
+md5Orig=$(echo ${curlRsl} | cut -d">" -f2 | cut -d"<" -f1)
+echo $md5Orig ${shFile} > conda.md5
+
+if md5sum -c conda.md5; then
+    :
+else
+    exit
+fi
+
+prefix=${HOME}"/local/miniconda3"
+chmod u+x ${shFile}
+./${shFile} -b -p ${prefix}
+export PATH=${prefix}/bin:${PATH}
+which pip
+pip install Fabric3
+
